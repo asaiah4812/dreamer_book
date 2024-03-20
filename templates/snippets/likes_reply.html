@@ -1,0 +1,26 @@
+{% load static %}
+<div class="flex items-center gap-4 [&>a:hover]:underline">
+    {% if reply.likes.count %}
+    <div class="flex items-center gap-1">
+               {% if user in reply.likes.all %}
+               <i class="fa-solid fa-heart text-lg"></i>
+               {% else %}
+               <i class="fa-regular fa-heart text-lg"></i>
+               {% endif %}
+               {{ reply.likes.count }} 
+           </div>
+           {% endif %}
+           {% if user.is_authenticated and user != reply.author %}
+           <a hx-get="{% url  'like-reply' reply.id %}"
+           hx-target="closest div"
+           hx-swap="outerHMTL"
+           class="cursor-pointer"
+           >
+               {% if user in reply.likes.all  %}
+               <b>Liked</b>
+                {% else %}
+                Like
+                {% endif %}
+           </a> 
+        {% endif %}
+</div>

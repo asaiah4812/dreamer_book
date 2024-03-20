@@ -1,0 +1,11 @@
+{% extends 'layouts/a.html' %}
+
+{% block content %}
+
+{% for post in posts %}
+
+     {% include 'post/post.html' %}
+     
+{% endfor %}
+
+{% endblock %} 

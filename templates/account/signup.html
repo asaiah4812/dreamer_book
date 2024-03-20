@@ -1,0 +1,33 @@
+{% extends "account/base.html" %}
+
+{% load  i18n %}
+
+{% block head_title %} {% trans "Signup"  %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Signup Up" %}</h1>
+<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">Sign in </a>{% endblocktrans %}</p>
+
+<form class="signup gap-2" id="signup_form" method="post" action="{% url 'account_signup' %}">
+    {% csrf_token %}
+    {% for field in form %}
+  <div class="form-group">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {{ field }}
+    {% if field.errors %}
+      <ul class="errors ">
+        {% for error in field.errors %}
+          <li >{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+{% endfor %}
+<br>
+    <input type="hidden" name="{{ redirect_field_name }}" value="{% url 'profile-onboarding' %}">
+    <button type="submit">{% trans "Sign Up" %} &raquo;</button>
+</form>
+
+{% endblock %}
+
